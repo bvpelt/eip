@@ -11,8 +11,10 @@ Use generator for initial maven pom
 - https://start.spring.io/
 
 # Camel
-- http://camel.apache.org/timer.html
-- https://github.com/apache/camel/examples/camel-example-spring-boot-activemq/
+- [timer](http://camel.apache.org/timer.html)
+- [example](https://github.com/apache/camel/examples/camel-example-spring-boot-activemq/)
+- [setup example](https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/fuse_integration_services_2.0_for_openshift/camel-spring-boot) 
+
 
 
 
