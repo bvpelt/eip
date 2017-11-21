@@ -12,6 +12,8 @@ public class EipAutowiredRoutes extends RouteBuilder {
 
     @Autowired MyBean mybean;
 
+    @Autowired MyProcessor myprocessor;
+
     @Override
     public void configure() throws Exception {
         logger.info("Configure routes - start");
@@ -23,14 +25,26 @@ public class EipAutowiredRoutes extends RouteBuilder {
                 .to("activemq:queue:MyQueue");
         */
 
-        from("timer:bar?fixedRate=true&period=1000")
+        from("timer:bar?fixedRate=true&period=10")
+                .setHeader("Discriminator", simple("${random(20)}") )
                 .setHeader("mydest", simple("activemq:queue:MyQueue,activemq:queue:MyLog"))
+                .setBody(constant("Hello from Camel"))
+                .process(myprocessor)
                 .recipientList(header("mydest"))
                 .stopOnException();
 
         from("activemq:queue:MyQueue")
-                .setHeader("Discriminator01", simple("${random(20)}") )
                 .to("log:sample?showHeaders=true");
+
+        from("activemq:queue:MyLog")
+                .resequence(header("Discriminator")).batch().size(20).timeout(200)
+                .to("log:resequenced?showHeaders=true");
+
+        /*
+        from("activemq:queue:MyLog")
+                .resequence(header("Discriminator")).stream().capacity(20).timeout(500).delay(200)
+                .to("log:resequenced?showHeaders=true");
+        */
 
         from("timer://foo?fixedRate=true&period=5000")
                 .to("bean:myBean?method=someMethodName");
