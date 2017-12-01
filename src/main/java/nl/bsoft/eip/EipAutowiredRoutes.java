@@ -25,9 +25,9 @@ public class EipAutowiredRoutes extends RouteBuilder {
                 .to("activemq:queue:MyQueue");
         */
 
-        from("timer:bar?fixedRate=true&period=10")
+        from("timer:bar?fixedRate=true&period=1")
                 .setHeader("Discriminator", simple("${random(20)}") )
-                .setHeader("mydest", simple("activemq:queue:MyQueue,activemq:queue:MyLog"))
+                .setHeader("mydest", simple("activemq:queue:MyQueue,activemq:queue:MyLog,direct:database"))
                 .setBody(constant("Hello from Camel"))
                 .process(myprocessor)
                 .recipientList(header("mydest"))
@@ -39,6 +39,11 @@ public class EipAutowiredRoutes extends RouteBuilder {
         from("activemq:queue:MyLog")
                 .resequence(header("Discriminator")).batch().size(20).timeout(200)
                 .to("log:resequenced?showHeaders=true");
+
+        from("direct:database")
+                .setBody(simple("insert into datatest (data) values('${in.body}')"))
+                .to("jdbc:dataSource");
+
 
         /*
         from("activemq:queue:MyLog")

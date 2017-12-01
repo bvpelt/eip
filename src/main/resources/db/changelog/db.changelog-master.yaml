@@ -4,11 +4,15 @@ databaseChangeLog:
       author: bvpelt
       changes:
         - createTable:
-            tableName: data_object
+            tableName: datatest
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: serial
                   constraints:
                     primaryKey: true
                     nullable: false
+              - column:
+                  name: data
+                  type: varchar(200)
+
