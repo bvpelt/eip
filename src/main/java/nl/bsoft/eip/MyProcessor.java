@@ -30,7 +30,7 @@ public class MyProcessor implements Processor {
 
         showMessage(exchange);
 */
-        String newBody = "Message :: was: " + exchange.getIn().getBody() + " " + exchange.getIn().getHeader("Discriminator");
+        String newBody = exchange.getIn().getBody() + " " + exchange.getIn().getHeader("Discriminator");
         exchange.getIn().setBody(newBody);
 /*
         logger.info("created: {}, endpoint key: {}, endpoint uri: {}", created.toString(), endpointKey, endpointUri);

@@ -1,6 +1,7 @@
 package nl.bsoft.eip;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.rest.RestBindingMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ public class EipAutowiredRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         logger.info("Configure routes - start");
+
+        // configure to use restlet on localhost with the given port
+        // and enable auto binding mode
+        int portNum = 8888;
+        restConfiguration().component("restlet").host("localhost").port(portNum).bindingMode(RestBindingMode.auto);
 
         /*
         from("timer:bar?fixedRate=true&period=1000")
@@ -53,6 +59,13 @@ public class EipAutowiredRoutes extends RouteBuilder {
 
         from("timer://foo?fixedRate=true&period=5000")
                 .to("bean:myBean?method=someMethodName");
+
+        rest("/users/")
+                .get().to("direct:users");
+
+        from("direct:users")
+                .setBody(simple("select * from users"))
+                .to("jdbc:dataSource");
 
         logger.info("Configure routes - end");
     }

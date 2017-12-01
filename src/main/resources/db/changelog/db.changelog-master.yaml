@@ -15,4 +15,26 @@ databaseChangeLog:
               - column:
                   name: data
                   type: varchar(200)
+  - changeSet:
+      id: 2
+      author: bvpelt
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: voornaam
+                  type: varchar(24)
+              - column:
+                  name: tussenvoegsel
+                  type: varchar(12)
+              - column:
+                  name: achternaam
+                  type: varchar(48)
 
