@@ -1,7 +1,10 @@
 package nl.bsoft.eip;
 
 
-import org.apache.camel.*;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
+import org.apache.camel.Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -51,7 +54,7 @@ public class MyProcessor implements Processor {
 
     private void showHeaders(Exchange exchange) {
         Message message = exchange.getIn();
-        Map<String, Object> headers= message.getHeaders();
+        Map<String, Object> headers = message.getHeaders();
         Set<String> keyset = headers.keySet();
         Iterator<String> keyIterator = keyset.iterator();
 
@@ -60,18 +63,18 @@ public class MyProcessor implements Processor {
             Object object = headers.get(key);
             boolean logged = false;
 
-            if ( object instanceof String) {
-                String value = (String)headers.get(key);
+            if (object instanceof String) {
+                String value = (String) headers.get(key);
                 logged = true;
                 logger.info("headers :: key: {}, value: {}", key, value);
             }
-            if ( object instanceof Integer) {
-                Integer value = (Integer)headers.get(key);
+            if (object instanceof Integer) {
+                Integer value = (Integer) headers.get(key);
                 logged = true;
                 logger.info("headers :: key: {}, value: {}", key, value);
             }
-            if ( object instanceof Date) {
-                Date value = (Date)headers.get(key);
+            if (object instanceof Date) {
+                Date value = (Date) headers.get(key);
                 logged = true;
                 logger.info("headers :: key: {}, value: {}", key, value.toString());
             }
@@ -103,28 +106,28 @@ public class MyProcessor implements Processor {
             String key = keyIterator.next();
             Object object = properties.get(key);
             boolean logged = false;
-            if ( object instanceof String) {
-                String value = (String)properties.get(key);
+            if (object instanceof String) {
+                String value = (String) properties.get(key);
                 logged = true;
                 logger.info("properties :: key: {}, value: {}", key, value);
             }
-            if ( object instanceof Integer) {
-                Integer value = (Integer)properties.get(key);
+            if (object instanceof Integer) {
+                Integer value = (Integer) properties.get(key);
                 logged = true;
                 logger.info("properties :: key: {}, value: {}", key, value);
             }
-            if ( object instanceof Boolean) {
-                Boolean value = (Boolean)properties.get(key);
+            if (object instanceof Boolean) {
+                Boolean value = (Boolean) properties.get(key);
                 logged = true;
                 logger.info("properties :: key: {}, value: {}", key, value);
             }
-            if ( object instanceof Long) {
-                Long value = (Long)properties.get(key);
+            if (object instanceof Long) {
+                Long value = (Long) properties.get(key);
                 logged = true;
                 logger.info("properties :: key: {}, value: {}", key, value);
             }
-            if ( object instanceof Date) {
-                Date value = (Date)properties.get(key);
+            if (object instanceof Date) {
+                Date value = (Date) properties.get(key);
                 logged = true;
                 logger.info("properties :: key: {}, value: {}", key, value.toString());
             }

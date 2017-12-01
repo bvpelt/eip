@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 public class EipAutowiredRoutes extends RouteBuilder {
     private static final Logger logger = LoggerFactory.getLogger(EipAutowiredRoutes.class);
 
-    @Autowired MyBean mybean;
+    @Autowired
+    MyBean mybean;
 
-    @Autowired MyProcessor myprocessor;
+    @Autowired
+    MyProcessor myprocessor;
 
     @Override
     public void configure() throws Exception {
@@ -32,7 +34,7 @@ public class EipAutowiredRoutes extends RouteBuilder {
         */
 
         from("timer:bar?fixedRate=true&period=1")
-                .setHeader("Discriminator", simple("${random(20)}") )
+                .setHeader("Discriminator", simple("${random(20)}"))
                 .setHeader("mydest", simple("activemq:queue:MyQueue,activemq:queue:MyLog,direct:database"))
                 .setBody(constant("Hello from Camel"))
                 .process(myprocessor)

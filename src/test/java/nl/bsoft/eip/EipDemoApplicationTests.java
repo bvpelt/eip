@@ -2,7 +2,6 @@ package nl.bsoft.eip;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.NotifyBuilder;
-//import org.apache.camel.test.spring.CamelSpringBootRunner;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
+//import org.apache.camel.test.spring.CamelSpringBootRunner;
+
 /*
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,13 +29,12 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class EipDemoApplicationTests {
     private static final Logger logger = LoggerFactory.getLogger(EipDemoApplicationTests.class);
+    @Autowired
+    private CamelContext camelContext;
 
     @Test
     public void contextLoads() {
     }
-
-    @Autowired
-    private CamelContext camelContext;
 
     @Ignore("Requires a running activemq broker")
     public void shouldProduceMessages() throws Exception {

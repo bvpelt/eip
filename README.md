@@ -72,6 +72,11 @@ databaseChangeLog:
                   tableName: 
 ```
 
+## Rest
+```
+2017-12-01 21:40:33.438  INFO 13242 --- [tlet-1536863362] org.restlet.Component.LogService         : 2017-12-01	21:40:33	127.0.0.1	-	localhost	8888	GET	/users/	-	200	300	0	14	http://localhost:8888	Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0	-
+
+```
 # References
 - https://www.concretepage.com/spring-boot/spring-boot-logging-example
 - https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html
