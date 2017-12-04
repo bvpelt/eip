@@ -28,6 +28,18 @@ To get started copy xercesImpl version 2.11.0 into $HERMES_HOME/lib
 To use a datasource:
 - create a database with the proper user
 - define the datasource in the application.properties. 
+- create user pgtest with password pgtest01
+- grant user pgtest the privileges (example for postgresql)
+```postgres-sql
+grant all privileges on database mytest to pgtest;
+
+insert into users (voornaam, tussenvoegsel, achternaam) values ('Jan', 'de', 'Vries');
+insert into users (voornaam, tussenvoegsel, achternaam) values ('Karel', 'de', 'Vries');
+insert into users (voornaam, tussenvoegsel, achternaam) values ('Karel', null, 'Waterland');
+insert into users (voornaam, tussenvoegsel, achternaam) values ('Peter', 'de', 'Grootte');
+insert into users (voornaam, tussenvoegsel, achternaam) values ('Peter', 'de', 'Zwart');
+insert into users (voornaam, tussenvoegsel, achternaam) values ('Peter', 'van der', 'Schans');
+```
 
 #### Setup datasource
 Example:
@@ -73,6 +85,7 @@ databaseChangeLog:
 ```
 
 ## Rest
+See [http://camel.apache.org/rest-dsl.html](http://camel.apache.org/rest-dsl.html)
 ```
 2017-12-01 21:40:33.438  INFO 13242 --- [tlet-1536863362] org.restlet.Component.LogService         : 2017-12-01	21:40:33	127.0.0.1	-	localhost	8888	GET	/users/	-	200	300	0	14	http://localhost:8888	Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0	-
 

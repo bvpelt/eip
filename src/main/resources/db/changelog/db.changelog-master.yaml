@@ -15,10 +15,6 @@ databaseChangeLog:
               - column:
                   name: data
                   type: varchar(200)
-  - changeSet:
-      id: 2
-      author: bvpelt
-      changes:
         - createTable:
             tableName: users
             columns:
@@ -37,4 +33,13 @@ databaseChangeLog:
               - column:
                   name: achternaam
                   type: varchar(48)
+        - createIndex:
+            columns:
+              - column:
+                  name: achternaam
+                  type: varchar(48)
+            indexName: idx_achternaam
+            schemaName: public
+            tableName: users
+            unique: false
 

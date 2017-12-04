@@ -63,10 +63,26 @@ public class EipAutowiredRoutes extends RouteBuilder {
                 .to("bean:myBean?method=someMethodName");
 
         rest("/users/")
-                .get().to("direct:users");
+                .get().to("direct:users")
+                .get("/id/{id}").to("direct:usersdetail")
+                .get("/achternaam/{achternaam}").to("direct:usersachternaam")
+//                .post().type(User.class).to("direct:newuser");
+        ;
 
         from("direct:users")
                 .setBody(simple("select * from users"))
+                .to("jdbc:dataSource");
+
+        from("direct:usersdetail")
+                .setBody(simple("select * from users where id=${header.id}"))
+                .to("jdbc:dataSource");
+
+        from("direct:usersachternaam")
+                .setBody(simple("select * from users where achternaam='${header.achternaam}'"))
+                .to("jdbc:dataSource");
+
+        from("direct:newuser")
+                .setBody(simple("insert into users (voornaam, tussenvoegsel, achternaam) values ('${body[voornaam]}','${body[tussenvoegsel]}','${body[achternaam]}')"))
                 .to("jdbc:dataSource");
 
         logger.info("Configure routes - end");
